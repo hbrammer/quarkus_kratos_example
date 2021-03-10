@@ -2,15 +2,19 @@ package me.hauke.quarkuskratos.auth
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.QueryParam
+import javax.ws.rs.*
+import javax.ws.rs.core.Cookie
 
 @RegisterRestClient(configKey = "kratos")
 interface KratosClient {
     @GET
     @Path("/self-service/registration/flows")
     fun getRegistrationFlow(@QueryParam("id") flowId: String): KratosRegistrationResponse
+
+    @GET
+    @Path("/sessions/whoami")
+    @Throws(WebApplicationException::class)
+    fun getWhoAmI(@CookieParam("ory_kratos_session") kratosSession: Cookie): String
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     data class KratosRegistrationResponse(
