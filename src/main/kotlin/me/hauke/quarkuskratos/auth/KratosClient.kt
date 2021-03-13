@@ -9,7 +9,11 @@ import javax.ws.rs.core.Cookie
 interface KratosClient {
     @GET
     @Path("/self-service/registration/flows")
-    fun getRegistrationFlow(@QueryParam("id") flowId: String): KratosRegistrationResponse
+    fun getRegistrationFlow(@QueryParam("id") flowId: String): KratosResponse
+
+    @GET
+    @Path("/self-service/login/flows")
+    fun getLoginFlow(@QueryParam("id") flowId: String): KratosResponse
 
     @GET
     @Path("/sessions/whoami")
@@ -17,7 +21,7 @@ interface KratosClient {
     fun getWhoAmI(@CookieParam("ory_kratos_session") kratosSession: Cookie): String
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    data class KratosRegistrationResponse(
+    data class KratosResponse(
             val id: String,
             val type: String,
             val messages: List<KratosMessage>?,
