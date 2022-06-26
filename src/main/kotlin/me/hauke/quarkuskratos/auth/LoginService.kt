@@ -2,7 +2,7 @@ package me.hauke.quarkuskratos.auth
 
 import io.quarkus.qute.Template
 import io.quarkus.qute.TemplateInstance
-import io.quarkus.qute.api.ResourcePath
+import io.quarkus.qute.Location
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 @ApplicationScoped
 class LoginService @Inject constructor(
         @RestClient val kratosClient: KratosClient,
-        @ResourcePath("auth/login.html") val loginTemplate: Template,
+        @Location("auth/login.html") val loginTemplate: Template,
 ) {
     fun login(flowId: String): TemplateInstance {
         val response = kratosClient.getLoginFlow(flowId)

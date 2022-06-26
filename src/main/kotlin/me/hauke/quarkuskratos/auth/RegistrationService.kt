@@ -1,8 +1,8 @@
 package me.hauke.quarkuskratos.auth
 
+import io.quarkus.qute.Location
 import io.quarkus.qute.Template
 import io.quarkus.qute.TemplateInstance
-import io.quarkus.qute.api.ResourcePath
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import java.util.logging.Logger
 import javax.enterprise.context.ApplicationScoped
@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 @ApplicationScoped
 class RegistrationService @Inject constructor(
-        @RestClient val kratosClient: KratosClient,
-        @ResourcePath("auth/registration.html") val registrationTemplate: Template,
+    @RestClient val kratosClient: KratosClient,
+    @Location("auth/registration.html") val registrationTemplate: Template,
 ) {
     private val logger: Logger = Logger.getLogger("RegistrationService")
     fun registration(flowId: String): TemplateInstance {

@@ -1,8 +1,8 @@
 package me.hauke.quarkuskratos.recipe
 
+import io.quarkus.qute.Location
 import io.quarkus.qute.Template
 import io.quarkus.qute.TemplateInstance
-import io.quarkus.qute.api.ResourcePath
 import me.hauke.quarkuskratos.auth.Secured
 import javax.inject.Inject
 import javax.ws.rs.GET
@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType
 
 @Path("/recipe")
 class RecipeEndpoint @Inject constructor(
-        @ResourcePath("recipe/recipe.html") val recipe: Template
+        @Location("recipe/recipe.html") val recipe: Template
 ) {
 
     @Secured

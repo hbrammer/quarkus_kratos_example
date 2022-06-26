@@ -6,6 +6,7 @@ import org.jboss.logging.Logger
 import java.net.URI
 import javax.annotation.Priority
 import javax.inject.Inject
+import javax.inject.Provider as InjectProvider
 import javax.ws.rs.NameBinding
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.Priorities
@@ -27,7 +28,7 @@ class AuthenticationFilter : ContainerRequestFilter {
 
     @Inject
     @RestClient
-    lateinit var kratosClient: KratosClient
+    lateinit var kratosClient: InjectProvider<KratosClient>
 
     companion object {
         private val LOG = Logger.getLogger(AuthenticationFilter::class.java)
@@ -44,7 +45,7 @@ class AuthenticationFilter : ContainerRequestFilter {
         LOG.info("Mmmmmh, Cookie: $cookie")
 
         val response = try {
-            kratosClient.getWhoAmI(cookie)
+            kratosClient.get().getWhoAmI(cookie)
         } catch (e: WebApplicationException) {
             LOG.warn(e)
             throw NotAuthorizedException("please login")
